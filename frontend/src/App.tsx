@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/useAuthStore";
+import { useThemeStore } from "./store/useThemeStore";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
@@ -12,6 +13,7 @@ import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { theme } = useThemeStore();
 
   useEffect(() => {
     checkAuth();
@@ -25,7 +27,7 @@ function App() {
     );
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
       <Routes>
         <Route
@@ -46,7 +48,15 @@ function App() {
           element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
         />
       </Routes>
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          style: {
+            borderRadius: "var(--radius-field)",
+            backgroundColor: "var(--color-base-300)",
+            color: "var(--color-base-content)",
+          },
+        }}
+      />
     </div>
   );
 }
