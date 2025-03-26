@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "backend/src/index.js",
   "scripts": {
-    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "build": "npm install --prefix backend && bun install --cwd frontend && bun run build --cwd frontend",
     "start": "npm run start --prefix backend"
   },
   "repository": {
