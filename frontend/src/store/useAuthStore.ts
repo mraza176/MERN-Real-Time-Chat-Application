@@ -23,6 +23,9 @@ interface AuthStore {
   signup: (data: Partial<User>) => void;
   login: (data: Partial<User>) => void;
   logout: () => void;
+  updateProfile: (data: {
+    profilePic: string | ArrayBuffer | null;
+  }) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -37,7 +40,6 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   checkAuth: async () => {
     try {
       const res = await axiosInstance.get("/auth/check");
-
       set({ authUser: res.data });
       //   get().connectSocket();
     } catch (error) {
@@ -65,7 +67,6 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       const res = await axiosInstance.post("/auth/login", data);
       set({ authUser: res.data });
       toast.success("Logged in successfully");
-
       //   get().connectSocket();
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -82,6 +83,18 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       //   get().disconnectSocket();
     } catch (error: any) {
       toast.error(error.response.data.message);
+    }
+  },
+  updateProfile: async (data: { profilePic: string | ArrayBuffer | null }) => {
+    set({ isUpdatingProfile: true });
+    try {
+      const res = await axiosInstance.put("/auth/update-profile", data);
+      set({ authUser: res.data });
+      toast.success("Profile updated successfully");
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    } finally {
+      set({ isUpdatingProfile: false });
     }
   },
 }));
