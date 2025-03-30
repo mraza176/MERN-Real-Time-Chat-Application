@@ -1,21 +1,24 @@
 {
-  "name": "chat-app",
+  "name": "backend",
   "version": "1.0.0",
-  "main": "backend/src/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start": "npm run start --prefix backend"
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mraza176/MERN-Real-Time-Chat-Application.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mraza176/MERN-Real-Time-Chat-Application/issues"
-  },
-  "homepage": "https://github.com/mraza176/MERN-Real-Time-Chat-Application#readme",
-  "description": ""
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.6.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.2",
+    "socket.io": "^4.8.1"
+  }
 }
